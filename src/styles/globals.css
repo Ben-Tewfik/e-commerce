@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* .test{
+    background-image: url(/public/);
+} */
+.test {
+  transition: all 1s ease-in-out;
+}
