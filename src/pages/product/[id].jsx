@@ -1,36 +1,73 @@
 import Image from "next/image";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "@/config/Config";
+import { db } from "@/config/config";
+
 export default function ProductPage({ product }) {
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
+  useEffect(() => {
+    // Fetch the cart data from Firebase and update the cart state
+    const fetchCartData = async () => {
+      const cartQuery = query(
+        collection(db, "cart"),
+        where("title", "==", product.title)
+      ); // Customize this query as needed
+      const cartSnapshot = await getDocs(cartQuery);
+      const cartData = cartSnapshot.docs.map(doc => doc.data());
+      setCart(cartData);
+    };
+
+    fetchCartData();
+  }, [product.name]); // Run this effect whenever the product name changes
+
   const addToCart = async () => {
-    const updateProduct = { ...product, quantity };
-    setCart(prevCart => [...prevCart, updateProduct]);
-    console.log(cart);
-    try {
-      await addDoc(collection(db, "cart"), updateProduct);
-    } catch (error) {
-      console.error("Error adding to cart:", error);
+    // Check if the product already exists in the cart
+    const existingCartItem = cart.find(item => item.name === product.name);
+
+    if (existingCartItem) {
+      // Update the quantity of the existing item
+      const updatedCartItem = {
+        ...existingCartItem,
+        quantity: existingCartItem.quantity + quantity,
+      };
+      // Update the cart in Firebase
+      try {
+        const cartRef = collection(db, "cart");
+        const cartQuery = query(cartRef, where("name", "==", product.name)); // Customize this query as needed
+        const cartSnapshot = await getDocs(cartQuery);
+        const docId = cartSnapshot.docs[0].id; // Assuming there's only one document with the same name
+        await setDoc(doc(db, "cart", docId), updatedCartItem);
+        // Update the local cart state
+        const updatedCart = cart.map(item =>
+          item.name === product.name ? updatedCartItem : item
+        );
+        setCart(updatedCart);
+      } catch (error) {
+        console.error("Error updating cart item:", error);
+      }
+    } else {
+      // Item doesn't exist in cart; add it as a new document
+      const newCartItem = { ...product, quantity };
+      try {
+        await addDoc(collection(db, "cart"), newCartItem);
+        setCart(prevCart => [...prevCart, newCartItem]);
+      } catch (error) {
+        console.error("Error adding to cart:", error);
+      }
     }
   };
 
   function increment() {
     setQuantity(quantity => quantity + 1);
-    console.log("q is", quantity);
   }
+
   function decrement() {
     setQuantity(quantity => {
       const newQuantity = quantity - 1;
-      if (newQuantity < 1) {
-        return 1;
-      } else {
-        return newQuantity;
-      }
+      return newQuantity < 1 ? 1 : newQuantity;
     });
-    console.log("q is", quantity);
   }
   return (
     <section>
