@@ -1,9 +1,16 @@
 @media screen and (max-width: 992px) {
   .cartHead {
-    text-indent: 20px;
-    font-size: 24px;
-    font-weight: 400;
+    margin-top: 40%;
+    text-indent: 10%;
+    font-size: 100%;
+    font-weight: 600;
     font-family: Jost;
+    letter-spacing: 2px;
+  }
+  .thead {
+    width: "936px";
+    height: "44px";
+    background-color: #f1f3f4;
   }
   .main {
     box-sizing: border-box;
@@ -12,6 +19,7 @@
   .cart {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .receipt {
     width: 400px;
@@ -22,25 +30,25 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     padding: 10px;
-    /* Adjust the width as needed */
     font-family: Arial, sans-serif;
   }
-  /* Add styling for the last element as needed */
 }
 
 @media screen and (min-width: 992px) {
-  .cartHead {
-    text-indent: 200px;
-    font-size: 44px;
-    font-weight: 400;
-    font-family: Jost;
-  }
   .main {
-    box-sizing: border-box;
+    box-sizing: calc(100%-20%);
     margin: 10px 20px 20px;
   }
+  .cartHead {
+    margin-top: 15%;
+    text-indent: 10%;
+    font-size: 180%;
+    font-weight: 600;
+    font-family: Jost;
+    letter-spacing: 1vh;
+  }
+
   .cart {
-    box-sizing: border-box;
     display: flex;
     align-items: first baseline;
     justify-content: flex-end; /* Distribute remaining space between elements */
@@ -60,12 +68,19 @@
   .productTable {
     line-height: 26px;
     font-size: 14px;
-    width: calc(
-      100% - 20px
-    ); /* Calculate width with margin (adjust margin as needed) */
-    margin-left: 180px; /* Add margin to the right of the product table */
+    width: 100%;
+    margin-left: 80px; /* Add margin to the right of the product table */
     padding: 2%;
     font-family: Arial, sans-serif;
     margin-right: 20px;
   }
+}
+.thead {
+  width: "936px";
+  height: "44px";
+  background-color: #f1f3f4;
+}
+.theadItem {
+  text-indent: 2%;
+  font-size: small;
 }

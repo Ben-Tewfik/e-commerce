@@ -1,9 +1,11 @@
-import "@/styles/globals.css";
-import AppContext from "@/components/AppContext";
+import Navbar from "@/components/Navbar/Navbar"
+import "@/styles/globals.css"
+
 export default function App({ Component, pageProps }) {
   return (
-    <AppContext>
-      <Component {...pageProps} />;
-    </AppContext>
-  );
+    <>
+      <Navbar />
+      <Component {...pageProps} />
+    </>
+  )
 }
