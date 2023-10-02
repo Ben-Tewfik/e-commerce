@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import Receipt from "./Receipt"
-import styles from "@/styles/cart.module.css"
+import React, { useEffect, useState } from "react";
+import Receipt from "./Receipt";
+import styles from "@/styles/cart.module.css";
 import {
   QuerySnapshot,
   collection,
@@ -9,62 +9,62 @@ import {
   onSnapshot,
   query,
   updateDoc,
-} from "firebase/firestore"
-import { db } from "@/config/config"
+} from "firebase/firestore";
+import { db } from "@/config/config";
 
 export default function Cart() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   function handleQuantityChange(index, newQuantity) {
-    console.log("product", products)
-    const updatedProducts = [...products]
-    console.log("updated product", updatedProducts)
-    updatedProducts[index].quantity = newQuantity
-    setProducts(updatedProducts)
+    console.log("product", products);
+    const updatedProducts = [...products];
+    console.log("updated product", updatedProducts);
+    updatedProducts[index].quantity = newQuantity;
+    setProducts(updatedProducts);
 
     // Update the Firestore with the new quantity
-    const productToUpdate = updatedProducts[index]
+    const productToUpdate = updatedProducts[index];
     // Replace with my firebase
-    const docRef = doc(db, "cart", productToUpdate.id)
+    const docRef = doc(db, "cart", productToUpdate.id);
     updateDoc(docRef, {
       quantity: newQuantity,
     })
       .then(() => {
-        console.log("Firestore document updated successfully.")
+        console.log("Firestore document updated successfully.");
       })
-      .catch((error) => {
-        console.error("Error updating Firestore document:", error)
-      })
+      .catch(error => {
+        console.error("Error updating Firestore document:", error);
+      });
   }
   useEffect(() => {
-    const q = query(collection(db, "cart"))
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      let cartArr = []
-      QuerySnapshot.forEach((doc) => {
-        console.log("doc", doc)
-        cartArr.push({ ...doc.data(), id: doc.id })
-      })
-      setProducts(cartArr)
-    })
-    return () => unsubscribe
-  }, [])
-  console.log(products)
+    const q = query(collection(db, "cart"));
+    const unsubscribe = onSnapshot(q, QuerySnapshot => {
+      let cartArr = [];
+      QuerySnapshot.forEach(doc => {
+        console.log("doc", doc);
+        cartArr.push({ ...doc.data(), id: doc.id });
+      });
+      setProducts(cartArr);
+    });
+    return () => unsubscribe;
+  }, []);
+  console.log(products);
   // add data
 
-  const handleRemove = async (id) => {
-    await deleteDoc(doc(db, "cart", id))
-    console.log("this is the id", id)
-  }
+  const handleRemove = async id => {
+    await deleteDoc(doc(db, "cart", id));
+    console.log("this is the id", id);
+  };
   function handleClear() {
-    products.forEach((product) => {
+    products.forEach(product => {
       deleteDoc(doc(db, "cart", product.id))
         .then(() => {
-          console.log(`Removed product with ID ${product.id} from cart.`)
+          console.log(`Removed product with ID ${product.id} from cart.`);
         })
-        .catch((error) => {
-          console.error(`Error removing product with ID ${product.id}:`, error)
-        })
-    })
-    setProducts([])
+        .catch(error => {
+          console.error(`Error removing product with ID ${product.id}:`, error);
+        });
+    });
+    setProducts([]);
   }
 
   return (
@@ -128,10 +128,10 @@ export default function Cart() {
                       type="number"
                       min="1"
                       value={product.quantity}
-                      onChange={(e) => {
-                        const newQuantity = parseInt(e.target.value, 10)
-                        handleQuantityChange(index, newQuantity)
-                        console.log(index, newQuantity)
+                      onChange={e => {
+                        const newQuantity = parseInt(e.target.value, 10);
+                        handleQuantityChange(index, newQuantity);
+                        console.log(index, newQuantity);
                       }}
                     />
                   </td>
@@ -167,5 +167,5 @@ export default function Cart() {
         <Receipt products={products} />
       </section>
     </>
-  )
+  );
 }
