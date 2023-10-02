@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
-import { useState } from "react"
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 function Navbar() {
-  const [navbar, setNavbar] = useState(false)
+  const [navbar, setNavbar] = useState(false);
   return (
     <div className="h-25">
       <nav className="w-full bg-white text-black fixed top-0 left-0 right-0 z-10 h-25">
@@ -84,10 +84,10 @@ function Navbar() {
         </div>
       </nav>
     </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
 
 // import Link from 'next/link';
 // import { useState } from 'react';

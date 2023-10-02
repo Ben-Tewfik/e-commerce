@@ -1,6 +1,6 @@
 // components/Footer.js
 
-import Link from "next/link"
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -165,7 +165,7 @@ const Footer = () => {
         </a>
       </p>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,5 +1,5 @@
-import React from "react"
-import styles from "@/styles/cart.module.css"
+import React from "react";
+import styles from "@/styles/cart.module.css";
 export default function Receipt({ products }) {
   return (
     <div className={styles.receipt}>
@@ -60,12 +60,12 @@ export default function Receipt({ products }) {
               .reduce(
                 (total, product) =>
                   (total = total + product.price * product.quantity),
-                0,
+                0
               )
               .toFixed(2)}
           </span>
         </div>
       </div>
     </div>
-  )
+  );
 }

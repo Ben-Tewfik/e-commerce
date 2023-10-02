@@ -1,7 +1,7 @@
-import Image from "next/image"
-import Link from "next/link"
-import React from "react"
-import { AiFillStar } from "react-icons/ai"
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { AiFillStar } from "react-icons/ai";
 
 export default function ProductCard({
   id,
@@ -40,5 +40,5 @@ export default function ProductCard({
         <span className="mt-9 ">{price}$</span>
       </div>
     </Link>
-  )
+  );
 }

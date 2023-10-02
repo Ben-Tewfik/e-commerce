@@ -1,6 +1,6 @@
-import Footer from "@/components/Footer/Footer"
-import Navbar from "@/components/Navbar/Navbar"
-import { Html, Head, Main, NextScript } from "next/document"
+import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -12,5 +12,5 @@ export default function Document() {
         <Footer />
       </body>
     </Html>
-  )
+  );
 }

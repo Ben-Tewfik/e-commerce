@@ -1,60 +1,60 @@
-import ProductCard from "@/Cards/ProductCard"
-import NameFilter from "@/components/filters/NameFilter/NameFilter"
-import PriceFilter from "@/components/filters/PriceFilters/PriceFilter"
-import RatingFilter from "@/components/filters/RatingFilter/RatingFilter"
-import Link from "next/link"
-import React, { useState, useEffect } from "react"
+import ProductCard from "@/Cards/ProductCard";
+import NameFilter from "@/components/filters/NameFilter/NameFilter";
+import PriceFilter from "@/components/filters/PriceFilters/PriceFilter";
+import RatingFilter from "@/components/filters/RatingFilter/RatingFilter";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
 
 export default function Products({ data, max }) {
-  const [products, setProducts] = useState(data)
-  const [minPrice, setMinPrice] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(1000)
-  const [rating, setRating] = useState()
-  const [name, setName] = useState("")
-  const [category, setCategory] = useState("All Products")
+  const [products, setProducts] = useState(data);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000);
+  const [rating, setRating] = useState();
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("All Products");
 
   const filterByPrice = () => {
     return data.filter(
-      (product) => product.price <= maxPrice && product.price >= minPrice,
-    )
-  }
+      product => product.price <= maxPrice && product.price >= minPrice
+    );
+  };
 
-  const filterByRating = (arr) => {
-    return arr.filter((product) => Math.round(product.rating.rate) === rating)
-  }
-  const filterByName = (arr) => {
-    return arr.filter((product) => product.title.toLowerCase().includes(name))
-  }
+  const filterByRating = arr => {
+    return arr.filter(product => Math.round(product.rating.rate) === rating);
+  };
+  const filterByName = arr => {
+    return arr.filter(product => product.title.toLowerCase().includes(name));
+  };
 
   const filter = () => {
-    let filteredArray = [...data]
+    let filteredArray = [...data];
     if (minPrice > 0 || maxPrice < max) {
-      filteredArray = filterByPrice()
+      filteredArray = filterByPrice();
     }
     if (rating) {
-      filteredArray = [...filterByRating(filteredArray)]
+      filteredArray = [...filterByRating(filteredArray)];
     }
     if (name) {
-      filteredArray = [...filterByName(filteredArray)]
+      filteredArray = [...filterByName(filteredArray)];
     }
-    setProducts(filteredArray)
-  }
+    setProducts(filteredArray);
+  };
 
   const resetFilter = () => {
-    setMaxPrice(1000)
-    setMinPrice(0)
-    setRating(null)
-    setName("")
-  }
+    setMaxPrice(1000);
+    setMinPrice(0);
+    setRating(null);
+    setName("");
+  };
   useEffect(() => {
     // filterByPrice()
-    filter()
+    filter();
     // console.log()
-  }, [minPrice, maxPrice, rating, name])
+  }, [minPrice, maxPrice, rating, name]);
 
   useEffect(() => {
-    setProducts(data)
-  }, [data])
+    setProducts(data);
+  }, [data]);
 
   return (
     <div className="bg-white min-h-screen">
@@ -125,7 +125,7 @@ export default function Products({ data, max }) {
           </div>
           <div className="products ">
             <div className="product-wrapper flex flex-wrap gap-16 justify-around pl-8">
-              {products.map((product) => (
+              {products.map(product => (
                 <ProductCard key={product.id} {...product} />
               ))}
             </div>
@@ -133,26 +133,26 @@ export default function Products({ data, max }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(ctx) {
-  const { category } = ctx.query
-  let apiUrl = "https://fakestoreapi.com/products"
+  const { category } = ctx.query;
+  let apiUrl = "https://fakestoreapi.com/products";
 
   if (category) {
-    apiUrl += `/category/${category}`
+    apiUrl += `/category/${category}`;
   }
 
-  const data = await fetch(apiUrl)
-  const result = await data.json()
-  const prices = result.map((product) => product.price)
-  const biggestPrice = Math.max(...prices)
+  const data = await fetch(apiUrl);
+  const result = await data.json();
+  const prices = result.map(product => product.price);
+  const biggestPrice = Math.max(...prices);
 
   return {
     props: {
       data: result,
       max: biggestPrice,
     },
-  }
+  };
 }

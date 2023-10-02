@@ -1,29 +1,29 @@
-import Link from "next/link"
+import Link from "next/link";
 // import { auth } from "../../util/firebase";
 // import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/util/firebase"
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/util/firebase";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const signIn = (e) => {
-    e.preventDefault()
+  const signIn = e => {
+    e.preventDefault();
     // Write your signIn code here
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(userCredential => {
         // Signed in
-        console.log(userCredential)
-        const user = userCredential.user
+        console.log(userCredential);
+        const user = userCredential.user;
         // ...
       })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-      })
-  }
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
 
   return (
     <>
@@ -47,7 +47,7 @@ export default function SignIn() {
                 <div className="mt-2">
                   <input
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                     id="email"
                     name="email"
                     type="email"
@@ -68,7 +68,7 @@ export default function SignIn() {
                 <div className="mt-2">
                   <input
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     id="password"
                     name="password"
                     type="password"
@@ -105,5 +105,5 @@ export default function SignIn() {
         </div>
       </div>
     </>
-  )
+  );
 }

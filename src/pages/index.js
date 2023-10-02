@@ -1,9 +1,9 @@
-import HomeProductsCards from "@/components/home components/HomeProductsCards"
-import Link from "next/link"
-import styles from "@/styles/home.module.css"
-import { fetcher } from "@/util/API"
-import about from "../../public/about.jpg"
-import Image from "next/image"
+import HomeProductsCards from "@/components/home components/HomeProductsCards";
+import Link from "next/link";
+import styles from "@/styles/home.module.css";
+import { fetcher } from "@/util/API";
+import about from "../../public/about.jpg";
+import Image from "next/image";
 
 export default function Home({ products }) {
   const bgStyles = {
@@ -12,7 +12,7 @@ export default function Home({ products }) {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "fixed",
-  }
+  };
   return (
     <main>
       <header
@@ -69,11 +69,11 @@ export default function Home({ products }) {
         </div>
       </section>
     </main>
-  )
+  );
 }
 
 // fetching the products
 export async function getServerSideProps() {
-  const products = await fetcher("")
-  return { props: { products } }
+  const products = await fetcher("");
+  return { props: { products } };
 }

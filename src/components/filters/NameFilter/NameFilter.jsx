@@ -1,8 +1,8 @@
-import React from "react"
+import React from "react";
 
 export default function NameFilter({ setName, name }) {
   return (
-    <form className="flex items-center" onSubmit={(e) => e.preventDefault()}>
+    <form className="flex items-center" onSubmit={e => e.preventDefault()}>
       <label for="simple-search" className="sr-only">
         Search
       </label>
@@ -29,10 +29,10 @@ export default function NameFilter({ setName, name }) {
           id="simple-search"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 "
           placeholder="Search branch name..."
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
           value={name}
         />
       </div>
     </form>
-  )
+  );
 }

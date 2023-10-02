@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { AiFillStar, AiOutlineStar } from "react-icons/ai"
+import React, { useEffect, useState } from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const starsArray = [
   {
@@ -27,29 +27,29 @@ const starsArray = [
     name: "star5",
     isFill: false,
   },
-]
+];
 export default function RatingFilter({ setRating, rating }) {
-  const [stars, setStars] = useState(starsArray)
+  const [stars, setStars] = useState(starsArray);
 
-  const handleStars = (index) => {
-    console.log("innnnn", index)
+  const handleStars = index => {
+    console.log("innnnn", index);
 
-    const updatedStars = stars.map((star) =>
-      star.id <= index ? { ...star, isFill: true } : { ...star, isFill: false },
-    )
+    const updatedStars = stars.map(star =>
+      star.id <= index ? { ...star, isFill: true } : { ...star, isFill: false }
+    );
 
-    setRating(index)
-    setStars(updatedStars)
-  }
+    setRating(index);
+    setStars(updatedStars);
+  };
   useEffect(() => {
     if (!rating) {
-      setStars(starsArray)
+      setStars(starsArray);
     }
-  }, [rating])
+  }, [rating]);
   return (
     <div className="stars ">
       <div className="stars-container flex ">
-        {stars.map((star) => (
+        {stars.map(star => (
           <button
             key={star.id}
             className="w-9 h-9 "
@@ -64,5 +64,5 @@ export default function RatingFilter({ setRating, rating }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

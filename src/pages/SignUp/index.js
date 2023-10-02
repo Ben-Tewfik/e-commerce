@@ -1,28 +1,28 @@
-import Link from "next/link"
-import { useState } from "react"
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/util/firebase"
+import Link from "next/link";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/util/firebase";
 
 export default function Signup() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const signUp = (e) => {
-    e.preventDefault()
+  const signUp = e => {
+    e.preventDefault();
     // Put the signUp code here
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(userCredential => {
         // Signed up
-        console.log(userCredential)
-        const user = userCredential.user
+        console.log(userCredential);
+        const user = userCredential.user;
         // ...
       })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
         // ..
-      })
-  }
+      });
+  };
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -45,7 +45,7 @@ export default function Signup() {
                 <div className="mt-2">
                   <input
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                     id="email"
                     name="email"
                     type="email"
@@ -66,7 +66,7 @@ export default function Signup() {
                 <div className="mt-2">
                   <input
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     id="password"
                     name="password"
                     type="password"
@@ -103,5 +103,5 @@ export default function Signup() {
         </div>
       </div>
     </>
-  )
+  );
 }

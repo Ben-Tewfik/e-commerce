@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 import {
   doc,
@@ -7,46 +7,46 @@ import {
   getDoc,
   updateDoc,
   increment,
-} from "firebase/firestore"
-import { useEffect, useState } from "react"
-import { db } from "@/config/config"
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "@/config/config";
 
 export default function ProductPage({ product }) {
-  const [cart, setCart] = useState([])
-  const [quantity, setQuantity] = useState(1)
-  const [showNotification, setShowNotification] = useState(false)
+  const [cart, setCart] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const [showNotification, setShowNotification] = useState(false);
 
   // Call the function to get product IDs
   const addToCart = async () => {
-    const updateProduct = { ...product, quantity }
-    setCart((prevCart) => [...prevCart, updateProduct])
-    console.log(cart)
+    const updateProduct = { ...product, quantity };
+    setCart(prevCart => [...prevCart, updateProduct]);
+    console.log(cart);
     try {
-      await addDoc(collection(db, "cart"), updateProduct)
+      await addDoc(collection(db, "cart"), updateProduct);
     } catch (error) {
-      console.error("Error adding to cart:", error)
+      console.error("Error adding to cart:", error);
     }
-    setShowNotification(true)
+    setShowNotification(true);
 
     setTimeout(() => {
-      setShowNotification(false)
-    }, 3000)
-  }
+      setShowNotification(false);
+    }, 3000);
+  };
 
   function incremenet() {
-    setQuantity((quantity) => quantity + 1)
-    console.log("q is", quantity)
+    setQuantity(quantity => quantity + 1);
+    console.log("q is", quantity);
   }
   function decrement() {
-    setQuantity((quantity) => {
-      const newQuantity = quantity - 1
+    setQuantity(quantity => {
+      const newQuantity = quantity - 1;
       if (newQuantity < 1) {
-        return 1
+        return 1;
       } else {
-        return newQuantity
+        return newQuantity;
       }
-    })
-    console.log("q is", quantity)
+    });
+    console.log("q is", quantity);
   }
 
   return (
@@ -104,16 +104,18 @@ export default function ProductPage({ product }) {
         </div>
       )}
     </section>
-  )
+  );
 }
 
 export async function getServerSideProps({ params }) {
-  const response = await fetch(`https://fakestoreapi.com/products/${params.id}`)
-  const product = await response.json()
+  const response = await fetch(
+    `https://fakestoreapi.com/products/${params.id}`
+  );
+  const product = await response.json();
 
   return {
     props: {
       product,
     },
-  }
+  };
 }

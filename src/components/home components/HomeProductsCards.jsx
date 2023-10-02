@@ -1,10 +1,10 @@
-import styles from "@/styles/home.module.css"
-import Link from "next/link"
+import styles from "@/styles/home.module.css";
+import Link from "next/link";
 function HomeProductsCards({ products }) {
-  const firstThree = products.slice(1, 4)
+  const firstThree = products.slice(1, 4);
   return (
     <div className={styles.products}>
-      {firstThree.map((product) => {
+      {firstThree.map(product => {
         return (
           <section key={product.id} className={styles.product}>
             <div className={styles.ImgContainer}>
@@ -25,9 +25,9 @@ function HomeProductsCards({ products }) {
               </Link>
             </div>
           </section>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
-export default HomeProductsCards
+export default HomeProductsCards;
